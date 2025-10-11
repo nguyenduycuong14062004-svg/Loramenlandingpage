@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Lora Men — Sang trọng & Tự tin</title>
+  <meta name="description" content="Lora Men — Giới thiệu & đặt mua. Nội dung trung tính, không khẳng định y tế.">
+
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Facebook Pixel placeholder -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    try{ fbq('init', 'FB_PIXEL_ID'); fbq('track','PageView'); }catch(e){}
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=FB_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
+
+  <!-- TikTok Pixel placeholder -->
+  <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject = t; var ttq = w[t] = w[t] || [];
+      ttq.methods = ["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie"];
+      ttq.setAndDefer = function (t, e) { t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } };
+      for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]);
+      ttq.load = function (e) { var i = "https://analytics.tiktok.com/i18n/pixel/events.js"; var o = d.createElement("script"); o.type = "text/javascript"; o.async = !0; o.src = i; var a = d.getElementsByTagName("script")[0]; a.parentNode.insertBefore(o, a); ttq._initOptions = { pixelId: e }; };
+      try{ ttq.load('TT_PIXEL_ID'); ttq.page(); }catch(e){}
+    }(window, document, 'ttq');
+  </script>
+
+  <style>
+    /* small custom */
+    .reveal { opacity: 0; transform: translateY(10px); transition: all .6s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    /* product image swap */
+    .img-back { opacity: 0; transition: opacity .4s ease, transform .45s ease; transform: scale(1.06); }
+    .card-hover:hover .img-front { opacity: 0; transform: scale(.98); }
+    .card-hover:hover .img-back { opacity: 1; transform: scale(1); }
+    /* mobile carousel snap */
+    .snap-x { scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; overflow-x: auto; scroll-behavior: smooth; }
+    .snap-item { scroll-snap-align: start; flex: 0 0 80%; } /* Adjust width for overlap */
+    /* overlay modal animation */
+    .modal-open { animation: modalShow .28s ease both; }
+    @keyframes modalShow { from { transform: translateY(8px) scale(.98); opacity:0 } to { transform: none; opacity:1 } }
+    @keyframes slideDown {
+  from { transform: translateY(-8px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+.animate-slide { animation: slideDown .25s ease both; }
+
+    /* NEW: Infinite carousel for feedback/licenses */
+/* UPDATED: Infinite carousel for feedback/licenses - 9:16 small, 2 columns */
+.feedback-grid, .licenses-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 cột */
+  grid-template-rows: repeat(2, auto); /* 2 hàng explicit */
+  gap: 4px; /* Gap nhỏ */
+  max-width: 90%;
+  margin: 0 auto; /* Center */
+}
+.feedback-item, .licenses-item {
+  aspect-ratio: 9/16; /* Tỷ lệ 9:16 */
+  max-height: 3000px; /* Nhỏ gọn */
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  position: relative;
+}
+
+/* Mobile: Horizontal scroll like products */
+@media (max-width: 767px) {
+  .feedback-grid, .licenses-grid {
+    display: flex; /* Flex ngang */
+    grid-template-columns: none; /* Bỏ grid cho mobile */
+    grid-template-rows: none;
+    overflow-x: auto; /* Scroll ngang rõ ràng */
+    scroll-snap-type: x mandatory; /* Snap swipe */
+    gap: 2px; /* Gap nhỏ */
+    padding: 0 4px; /* Padding nhẹ */
+    -webkit-overflow-scrolling: touch; /* Smooth scroll iOS */
+  }
+  .feedback-item, .licenses-item {
+    flex: 0 0 80%; /* 1 item full, swipe ngang */
+    max-height: 600px;
+    scroll-snap-align: start;
+    width: auto;
+  }
+  .feedback-grid::-webkit-scrollbar, .licenses-grid::-webkit-scrollbar { height: 2px; display: none; } /* Ẩn scroll bar mobile */
+  .feedback-grid::-webkit-scrollbar-thumb, .licenses-grid::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 1px; }
+}
+
+/* Fallback icon */
+.fallback-icon { display: flex; align-items: center; justify-content: center; height: 100%; color: #9ca3af; font-size: 2rem; background-color: #f9fafb; }
+
+/* Giảm margin section */
+#feedback, #licenses { margin-bottom: 24px; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+
+  <!-- AGE GATE overlay (saved in localStorage) -->
+  <div id="ageOverlay" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm">
+    <div class="bg-white rounded-xl max-w-lg w-[92%] p-6 text-center transform scale-95 opacity-0 transition-all">
+      <h3 class="text-xl font-semibold mb-2">Xác nhận độ tuổi</h3>
+      <p class="text-sm text-gray-600 mb-6">Trang chỉ dành cho người trưởng thành 18+. Nội dung liên quan sản phẩm hỗ trợ nam giới.</p>
+      <div class="flex gap-3 justify-center">
+        <button id="confirmAge" class="bg-amber-300 text-black px-4 py-2 rounded-lg font-semibold">Tôi đã 18+</button>
+        <button id="leaveBtn" class="bg-white border border-gray-200 px-4 py-2 rounded-lg text-gray-700">Rời trang</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+<header class="flex justify-between items-center px-4 py-3 bg-white shadow-md sticky top-0 z-50">
+  <!-- Logo -->
+  <a href="/" class="flex items-center gap-3">
+    <div id="logoIcon"
+         class="w-12 h-12 rounded-md bg-gray-100 flex items-center justify-center font-bold text-gray-800"
+         style="background-image: url(''); background-size: cover;">
+      LM
+    </div>
+    <div>
+      <div class="text-lg font-semibold">Lora Men</div>
+      <div class="text-xs text-gray-500">Sang trọng • Bảo Mật</div>
+    </div>
+  </a>
+
+  <!-- Navigation -->
+  <nav id="navMenu" class="hidden md:flex items-center gap-6 text-gray-700 font-medium">
+    <a href="#home" class="hover:text-black">Trang chủ</a>
+    <a href="#products" class="hover:text-black">Sản phẩm</a>
+    <a href="#faq" class="hover:text-black">FAQ</a>
+    <a href="admin.html" class="px-3 py-1 border rounded-md hover:bg-gray-100">Admin</a>
+  </nav>
+
+  <!-- Nút Menu Mobile -->
+  <button id="mobileMenuBtn" class="md:hidden px-3 py-2 border rounded-md text-gray-700 hover:bg-gray-100">
+    Menu
+  </button>
+</header>
+
+<!-- Menu thả xuống ở mobile -->
+<nav id="mobileNav" class="hidden flex-col bg-white border-t shadow-md md:hidden">
+  <a href="#home" class="p-4 border-b hover:bg-gray-50">Trang chủ</a>
+  <a href="#products" class="p-4 border-b hover:bg-gray-50">Sản phẩm</a>
+  <a href="#faq" class="p-4 border-b hover:bg-gray-50">FAQ</a>
+  <a href="admin.html" class="p-4 hover:bg-gray-50">Admin</a>
+</nav>
+
+
+  <!-- HERO (full-width rectangle background) -->
+  <section id="home" class="relative">
+    <div id="heroBanner" class="h-[40vh] md:h-[48vh] bg-cover bg-center flex items-center" style="background-image:url('background.jpg')">
+      <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+      <div class="relative z-10 max-w-6xl mx-auto px-6 text-center text-white">
+        <div class="text-amber-300 font-semibold">Lora Men • Đẳng cấp nam tính</div>
+        <h1 class="text-3xl md:text-5xl font-extrabold leading-tight mt-6">Tinh tế — Sang trọng — Tự tin</h1>
+        <p class="text-gray-200 mt-4 max-w-2xl mx-auto">Sản phẩm thiết kế dành cho người trưởng thành. Nội dung mang tính giới thiệu; kết quả có thể khác nhau.</p>
+        <div class="mt-6 flex justify-center gap-4">
+          <button onclick="document.querySelector('#products').scrollIntoView({behavior:'smooth'})" class="bg-amber-300 px-6 py-3 rounded-lg font-semibold text-black">Xem sản phẩm</button>
+          <a href="#faq" class="px-6 py-3 border border-amber-300 rounded-lg text-amber-300">FAQ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN -->
+  <main class="max-w-6xl mx-auto px-4 mt-8 md:mt-12">
+    <!-- ABOUT card -->
+    <div class="bg-white rounded-2xl p-6 shadow-sm mb-8 reveal">
+      <div class="md:flex md:gap-6 items-center">
+        <div class="md:flex-1">
+          <h2 class="text-2xl font-semibold">Về Lora Men</h2>
+          <p class="text-gray-600 mt-3">Thương hiệu hướng tới khách hàng trưởng thành muốn vẻ ngoài tinh tế. Trang chỉ giới thiệu sản phẩm và dịch vụ, không đưa ra khẳng định y khoa.</p>
+          <ul class="mt-3 text-gray-600 list-disc list-inside">
+            <li>Nguyên liệu minh bạch</li>
+            <li>Hướng dẫn sử dụng rõ ràng</li>
+            <li>Chính sách đổi trả & bảo mật</li>
+          </ul>
+        </div>
+        <div class="md:w-80 mt-6 md:mt-0">
+          <img id="aboutImage" src="about.jpg" alt="About" class="rounded-lg shadow-sm w-full h-auto object-cover">
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCTS: desktop grid, mobile horizontal carousel -->
+    <section id="products" class="mb-12">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-semibold">Sản phẩm nổi bật</h3>
+      </div>
+
+      <!-- Desktop grid (2 per row) -->
+      <div id="productsGridDesktop" class="hidden md:grid md:grid-cols-2 gap-6"></div>
+
+      <!-- Mobile carousel (snap scroll) -->
+      <div id="productsCarouselMobile" class="md:hidden overflow-x-auto flex gap-4 snap-x px-2 py-2">
+        <!-- injected cards (snap-item style) -->
+      </div>
+    </section>
+
+    <!-- VIDEO & FANPAGE SECTION -->
+    <section id="media" class="max-w-6xl mx-auto px-4 mt-16 mb-20">
+      <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Trải nghiệm & Kết nối</h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- YouTube Video -->
+        <div class="w-full aspect-video rounded-2xl overflow-hidden shadow-md">
+          <iframe 
+              class="w-full h-full"
+              src="https://www.youtube.com/embed/BHih_HF1GSM?si=Vx9LxakhV_LBMnpp"
+              title="Video giới thiệu Lora Men"
+              frameborder="0"
+              allowfullscreen>
+          </iframe>
+        </div>
+
+        <!-- Fanpage -->
+        <div class="w-full h-[400px] rounded-2xl overflow-hidden shadow-md">
+          <iframe
+              class="w-full h-full"
+              src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Floramenchinhhang&tabs=timeline&width=500&height=400&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true"
+              style="border:none;overflow:hidden"
+              scrolling="no"
+              frameborder="0"
+              allowfullscreen="true"
+              allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+          </iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- UPDATED: FEEDBACK SECTION - Infinite Image Carousel -->
+    <section id="feedback" class="mb-16 reveal">
+          <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Phản hồi từ khách hàng</h2>
+          <div id="feedbackCarousel" class="carousel-container snap-x">
+            <div id="feedbackTrack" class="carousel-track infinite-scroll">
+              <!-- Rendered by JS: Duplicate items for infinite loop, only images -->
+            </div>
+          </div>
+        </section>
+
+        <!-- UPDATED: LICENSES SECTION - Infinite Image Carousel (9:16) -->
+        <section id="licenses" class="mb-16 reveal">
+          <h2 class="text-2xl md:text-3xl font-semibold text-center mb-8">Giấy phép & Chứng nhận</h2>
+          <div id="licensesCarousel" class="carousel-container snap-x">
+            <div id="licensesTrack" class="carousel-track infinite-scroll">
+              <!-- Rendered by JS: Duplicate items for infinite loop, only images -->
+            </div>
+          </div>
+        </section>
+  </main>
+
+<!-- ORDER MODAL — phong cách sang trọng tối giản -->
+ <div id="orderModal" class="fixed inset-0 z-50 hidden bg-black/60 backdrop-blur-sm flex items-center justify-center px-4 py-10 overflow-y-auto">
+
+  <div class="bg-white rounded-3xl w-full max-w-lg shadow-2xl p-8 my-10 relative animate-fadeIn border border-gray-100">
+
+    <!-- Close -->
+    <button id="closeOrder" class="absolute top-4 right-5 text-gray-400 hover:text-gray-700 text-2xl font-light">&times;</button>
+
+    <!-- Product info -->
+    <div class="flex items-center gap-5 mb-8 border-b pb-6">
+      <div class="w-24 h-24 bg-gray-100 rounded-2xl overflow-hidden flex items-center justify-center">
+        <img id="modalProductImg" src="" alt="product" class="w-full h-full object-cover">
+      </div>
+      <div class="flex-1">
+        <h4 id="modalProductName" class="text-2xl font-semibold text-gray-900 leading-snug">Tên sản phẩm</h4>
+        <p id="modalProductPrice" class="text-amber-500 font-bold text-xl mt-2"></p>
+        <p id="modalProductDesc" class="text-gray-500 text-sm mt-1 leading-relaxed"></p>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <form id="orderForm" class="space-y-6">
+      <input type="hidden" name="product" id="orderProductInput" />
+      <input type="hidden" name="price" id="orderPriceInput" />
+      
+
+      <!-- Quantity -->
+<div>
+  <label class="block text-sm font-medium text-gray-700 mb-1">Số lượng *</label>
+  <div class="flex items-center justify-between w-full border border-gray-300 rounded-xl overflow-hidden focus-within:ring-2 focus-within:ring-amber-400 transition">
+    <button type="button" id="decreaseQty"
+            class="px-4 py-2 text-lg text-gray-600 hover:text-white hover:bg-amber-400 transition">−</button>
+    <input id="quantity" name="quantity" type="number" min="1" max="10" value="1"
+           class="w-full text-center py-2 border-0 focus:ring-0 focus:outline-none text-lg font-medium text-gray-800"
+           required />
+    <button type="button" id="increaseQty"
+            class="px-4 py-2 text-lg text-gray-600 hover:text-white hover:bg-amber-400 transition">+</button>
+  </div>
+  <p class="text-xs text-gray-500 mt-1">Tối đa 10 sản phẩm</p>
+</div>
+
+
+      <!-- Total -->
+      <div class="flex justify-between items-center bg-gray-50 border border-gray-200 p-4 rounded-xl">
+        <span class="text-gray-700 font-medium">Tổng tiền</span>
+        <span id="totalAmount" class="text-xl font-bold text-amber-500">0 ₫</span>
+        <input type="hidden" id="totalAmountInput" name="total" />
+      </div>
+
+      <!-- Full name -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Họ & Tên *</label>
+        <input id="fullname" name="fullname" required
+               class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-transparent transition"
+               placeholder="Nguyễn Văn A" />
+      </div>
+
+      <!-- Phone -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại / Zalo *</label>
+        <input id="phone" name="phone" required
+               class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-transparent transition"
+               placeholder="09xxxxxxxx" />
+      </div>
+
+      <!-- Address -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Địa chỉ nhận hàng *</label>
+        <textarea id="address" name="address" rows="3" required
+                  class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-transparent transition resize-none"
+                  placeholder="Số nhà, đường, phường/xã, quận/huyện, tỉnh"></textarea>
+      </div>
+
+      <!-- Note -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Ghi chú (tùy chọn)</label>
+        <textarea id="note" name="note" rows="2"
+                  class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-transparent transition resize-none"
+                  placeholder="Ví dụ: Giao hàng sau 18h..."></textarea>
+      </div>
+
+      <!-- Payment -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Phương thức thanh toán</label>
+        <div class="flex items-center gap-6">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="radio" name="paymethod" value="cod" checked class="text-amber-400 focus:ring-amber-400">
+            <span class="text-gray-700">COD (khi nhận hàng)</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="radio" name="paymethod" value="qr" class="text-amber-400 focus:ring-amber-400">
+            <span class="text-gray-700">QR Thanh toán</span>
+          </label>
+        </div>
+
+        <!-- QR Payment box -->
+        <div id="qrSection" class="hidden mt-4 p-4 border border-amber-200 rounded-xl bg-amber-50 text-center">
+          <p class="text-sm text-gray-700 mb-3">Quét mã để thanh toán nhanh:</p>
+          <img id="qrImage"
+          src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://loramen.vn/pay"
+          alt="QR Code"
+          class="mx-auto w-40 h-40 rounded-lg shadow-sm border border-amber-100">
+
+          <p class="text-xs text-gray-500 mt-2">Vui lòng nhập nội dung chuyển khoản: <b>Tên + SĐT</b></p>
+        </div>
+      </div>
+
+      <!-- Consent -->
+      <label class="flex items-start gap-2 text-sm text-gray-600">
+        <input type="checkbox" name="consent" required class="mt-1 rounded border-gray-300 focus:ring-amber-400">
+        <span>Tôi đồng ý nhận thông tin & xác nhận đặt hàng.</span>
+      </label>
+
+      <!-- Submit -->
+      <div class="pt-4">
+        <button type="submit"
+                class="w-full bg-amber-400 hover:bg-amber-500 text-white py-3 rounded-xl font-semibold text-lg transition shadow-md">
+          Đăng ký mua hàng
+        </button>
+        <p id="orderStatus" class="text-center text-gray-500 text-sm mt-3"></p>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+  <!-- THANK YOU MODAL -->
+  <div id="thankModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50">
+    <div class="bg-white rounded-xl max-w-md w-[92%] p-6 text-center">
+      <h3 class="text-xl font-semibold">Cảm ơn!</h3>
+      <p class="text-gray-600 mt-3">Chúng tôi đã nhận đơn của bạn. Nhấn OK để quay lại sản phẩm.</p>
+      <div class="mt-5">
+        <button id="thankOk" class="bg-amber-300 px-6 py-2 rounded-lg font-semibold">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-white border-t py-6 mt-12">
+    <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+      <div class="text-sm text-gray-600">© <span id="yr"></span> Lora Men — Thông tin chỉ mang tính tham khảo.</div>
+      <div><a href="#privacy" class="text-sm text-gray-600">Chính sách bảo mật</a></div>
+    </div>
+  </footer>
+
+
+  <script src="script.js"></script>
+  <script>document.getElementById('yr').innerText = new Date().getFullYear();</script>
+  <script>
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileNav = document.getElementById('mobileNav');
+
+  mobileMenuBtn.addEventListener('click', () => {
+    mobileNav.classList.toggle('hidden');
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const qtyInput = document.getElementById('quantity');
+    const totalDisplay = document.getElementById('totalAmount');
+    const totalHidden = document.getElementById('totalAmountInput');
+    const priceEl = document.getElementById('modalProductPrice');
+    const form = document.getElementById('orderForm');
+
+    const maxQty = 10;
+    const minQty = 1;
+
+    // 🧮 Hàm cập nhật tổng tiền
+    const updateTotal = () => {
+      const priceText = priceEl.textContent.trim() || '0';
+      const basePrice = parseInt(priceText.replace(/[^\d]/g, '')) || 0;
+      const quantity = parseInt(qtyInput.value) || 1;
+      const total = basePrice * quantity;
+      totalDisplay.textContent = total.toLocaleString('vi-VN') + ' ₫';
+      totalHidden.value = total; // <-- để gửi sang Sheets
+    };
+
+    // Tăng giảm số lượng
+    document.getElementById('increaseQty').onclick = () => {
+      let v = parseInt(qtyInput.value) || 1;
+      if (v < maxQty) qtyInput.value = v + 1;
+      updateTotal();
+    };
+    document.getElementById('decreaseQty').onclick = () => {
+      let v = parseInt(qtyInput.value) || 1;
+      if (v > minQty) qtyInput.value = v - 1;
+      updateTotal();
+    };
+    qtyInput.oninput = updateTotal;
+
+    // 🔄 Cập nhật lại khi modal mở
+    const modal = document.getElementById('orderModal');
+    modal.addEventListener('transitionend', updateTotal);
+
+    form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  // Lấy dữ liệu từ DOM
+  const product = document.getElementById('modalProductName').textContent.trim();
+  const priceText = priceEl.textContent.trim();
+  const price = parseInt(priceText.replace(/[^\d]/g, '')) || 0;
+  const quantity = parseInt(qtyInput.value) || 1;
+  const total = price * quantity;
+
+  const fullname = document.getElementById('fullname').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const address = document.getElementById('address').value.trim();
+  const note = document.getElementById('note').value.trim();
+  const paymethodInput = form.querySelector('input[name="paymethod"]:checked');
+  const paymethod = paymethodInput ? paymethodInput.value : '';
+
+  if (!fullname || !phone || !address) {
+    document.getElementById('orderStatus').style.color = 'crimson';
+    document.getElementById('orderStatus').textContent = 'Vui lòng điền họ tên, số điện thoại và địa chỉ.';
+    return;
+  }
+
+  // Tạo dữ liệu gửi
+  const data = { product, price, quantity, total, fullname, phone, address, note, paymethod };
+
+  try {
+    const formData = new FormData();
+    Object.entries(data).forEach(([key, value]) => formData.append(key, value));
+
+    const response = await fetch(scriptURL, {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) throw new Error('Lỗi kết nối đến server');
+
+    const respJson = await response.json();
+
+    if (respJson.status === 'success') {
+      document.getElementById('orderStatus').style.color = 'green';
+      document.getElementById('orderStatus').textContent = '✅ Đặt hàng thành công! Cảm ơn bạn.';
+      form.reset();
+      updateTotal();
+    } else {
+      throw new Error(respJson.message || 'Lỗi từ server');
+    }
+  } catch (err) {
+    console.error(err);
+    document.getElementById('orderStatus').style.color = 'orange';
+    document.getElementById('orderStatus').textContent = 'Lỗi gửi. Vui lòng thử lại hoặc liên hệ.';
+  }
+});
+
+
+    updateTotal();
+  });
+</script>
+
+
+
+
+<style>
+  /* Giúp modal luôn căn giữa và không tràn */
+  #orderModal {
+    scroll-behavior: smooth;
+  }
+
+  #orderModal > div {
+    max-height: 90vh; /* giới hạn chiều cao */
+    overflow-y: auto; /* cho phép cuộn bên trong */
+  }
+
+  /* Làm form nhỏ lại gọn gàng */
+  #orderModal .bg-white {
+    max-width: 420px; /* giảm chiều rộng tổng thể */
+    padding: 2rem 1.5rem; /* thu gọn khoảng cách trong */
+  }
+
+  /* Hiệu ứng mở mượt */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fadeIn {
+    animation: fadeIn 0.35s ease-out;
+  }
+</style>
+
+</body>
+</html>
