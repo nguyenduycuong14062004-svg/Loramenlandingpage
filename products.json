@@ -1,26 +1,27 @@
+
 [
   {
     "id": 1,
     "title": "Lora Men — Standard",
     "desc": "Thiết kế bao bì cao cấp, phục vụ đối tượng trưởng thành cần sự tinh tế trong trải nghiệm.",
     "price": "499000",
-    "img1": "https://via.placeholder.com/1200x1200?text=Lora+Men+Standard+Front",
-    "img2": "https://via.placeholder.com/1200x1200?text=Lora+Men+Standard+Back"
+    "img1": "./images/lora-men-premium-front.png",
+    "img2": "./images/lora-men-premium-back.png"
   },
   {
     "id": 2,
     "title": "Lora Men — Plus",
     "desc": "Phiên bản nâng cấp với bao bì và trải nghiệm chăm sóc tỉ mỉ hơn.",
     "price": "899000",
-    "img1": "https://via.placeholder.com/1200x1200?text=Lora+Men+Plus+Front",
-    "img2": "https://via.placeholder.com/1200x1200?text=Lora+Men+Plus+Back"
+    "img1": "./images/lora-men-premium-back.png",
+    "img2": "./images/lora-men-premium-front.png"
   },
   {
     "id": 3,
     "title": "Lora Men — Premium",
     "desc": "Phiên bản giới hạn, thiết kế sang trọng bậc nhất với trải nghiệm hoàn thiện.",
-    "price": "1299000",
-    "img1": "https://via.placeholder.com/1200x1200?text=Lora+Men+Premium+Front",
-    "img2": "https://via.placeholder.com/1200x1200?text=Lora+Men+Premium+Back"
+    "price": "12299000",
+    "img1": "./images/lora-men-premium-front.png",
+    "img2": "./images/lora-men-premium-back.png"
   }
 ]

@@ -51,10 +51,10 @@ function loadSettings() {
   const raw = localStorage.getItem('lm_settings');
   let s = { 
     banner: 'background.jpg', 
-    qr: 'qr-sample.png',
-    logo: 'data:image/svg+xml;base64,...', // default base64 or url
-    about_img: 'about.jpg',
-    background_img: 'background.jpg'
+    qr: 'images/qr.jpg',
+    logo: 'images/Logo1.png', // default base64 or url ảnh đây
+    about_img: 'images/background.jpg',
+    background_img: 'images/background.jpg'
   };
   if (raw) { try { s = JSON.parse(raw); } catch(e){} }
   // apply if on index
@@ -75,6 +75,7 @@ function loadSettings() {
 // UPDATED: Render feedback as grid 3x2 desktop, horizontal scroll mobile (no animation)
 // ====== FEEDBACK & LICENSES ====== thêm mới1
 function renderFeedback() {
+
   const track = $('#feedbackTrack');
   if (!track) return;
   const items = JSON.parse(localStorage.getItem('lm_feedback')||'[]');
@@ -86,8 +87,53 @@ function renderFeedback() {
     track.appendChild(div);
   });
 }
-//
+const feedbacks = [
+  { img: './imagess/1.jpg' },
+  { img: './imagess/3.jpg' },
+  { img: './imagess/4.jpg' },
+  { img: './imagess/5.jpg' },
+  { img: './imagess/6.jpg' },
+  { img: './imagess/2.jpg' },
+
+];
+localStorage.setItem('lm_feedback', JSON.stringify(feedbacks));
 function renderFeedback() {
+  const raw = localStorage.getItem('lm_feedback');
+  let feedbacks = [];
+  if (raw) {
+    try { feedbacks = JSON.parse(raw); } catch(e){}
+  }
+
+  const container = document.querySelector('#feedback .feedback-grid') || document.createElement('div');
+  container.className = 'feedback-grid';
+  if (!document.querySelector('#feedback .feedback-grid')) {
+    const section = document.querySelector('#feedback');
+    if (section) section.appendChild(container);
+  }
+
+  container.innerHTML = '';
+
+  if (feedbacks.length === 0) {
+    // Fallback: 2 icon để grid đẹp
+    for (let i = 0; i < 2; i++) {
+      container.insertAdjacentHTML('beforeend', '<div class="feedback-item bg-gray-100 fallback-icon">💬</div>');
+    }
+    return;
+  }
+
+  // Render items (giới hạn 6 cho 3x2, nếu nhiều hơn thì scroll)
+  feedbacks.slice(0, 6).forEach(fb => {
+    const imgUrl = fb.img || './images/placeholder.png'; // đường dẫn ảnh, fallback nếu không có
+    const html = `<div class="feedback-item" style="background-image: url('${imgUrl}');"></div>`;
+    container.insertAdjacentHTML('beforeend', html);
+  });
+
+  if (feedbacks.length > 6) container.classList.add('overflow-x-auto'); // Scroll nếu nhiều
+}
+
+/*
+function renderFeedback() {
+  
   const raw = localStorage.getItem('lm_feedback');
   let feedbacks = []; // {img: base64/url}
   if (raw) { try { feedbacks = JSON.parse(raw); } catch(e){} }
@@ -112,10 +158,10 @@ function renderFeedback() {
   });
   if (feedbacks.length > 6) container.classList.add('overflow-x-auto'); // Scroll nếu nhiều
 }
-
+*/
 // UPDATED: Render licenses (similar, grid 3x2 desktop, horizontal mobile)
 // thêm mới1
-
+/*
 function renderLicenses() {
   const track = $('#licensesTrack');
   if (!track) return;
@@ -128,8 +174,57 @@ function renderLicenses() {
     track.appendChild(div);
   });
 }
-//
+*/
+const licenses = [
+  { img: './image/a.jpg' },
+  { img: './image/n.jpg' },
+  { img: './image/m.jpg' },
+  { img: './image/l.jpg' },
+  { img: './image/h.jpg' },
+  { img: './image/c.jpg' },
+  { img: './image/d.jpg' },
+  { img: './image/e.jpg' },
+  { img: './image/g.jpg' },
+  { img: './image/b.jpg' }
+];
 
+// Lưu vào localStorage
+localStorage.setItem('lm_licenses', JSON.stringify(licenses));
+function renderLicenses() {
+  const raw = localStorage.getItem('lm_licenses');
+  let licenses = [];
+  if (raw) { 
+    try { licenses = JSON.parse(raw); } catch(e){}
+  }
+
+  const container = document.querySelector('#licenses .licenses-grid') || document.createElement('div');
+  container.className = 'licenses-grid';
+  if (!document.querySelector('#licenses .licenses-grid')) {
+    const section = document.querySelector('#licenses');
+    if (section) section.appendChild(container);
+  }
+
+  container.innerHTML = '';
+
+  if (licenses.length === 0) {
+    for (let i = 0; i < 2; i++) {
+      container.insertAdjacentHTML('beforeend', '<div class="licenses-item bg-gray-100 fallback-icon">📜</div>');
+    }
+    return;
+  }
+
+  // Render 6 licenses đầu tiên
+  licenses.slice(0, 10).forEach(lc => {
+    const imgUrl = lc.img || './images/placeholder.png'; // fallback nếu không có ảnh
+    const html = `<div class="licenses-item" style="background-image: url('${imgUrl}');"></div>`;
+    container.insertAdjacentHTML('beforeend', html);
+  });
+
+  if (licenses.length > 6) container.classList.add('overflow-x-auto');
+}
+
+
+/*
 function renderLicenses() {
   const raw = localStorage.getItem('lm_licenses');
   let licenses = []; // {img: base64/url}
@@ -153,7 +248,7 @@ function renderLicenses() {
   });
   if (licenses.length > 6) container.classList.add('overflow-x-auto');
 }
-
+*/
 // render product card (giữ nguyên, không thay đổi)
 function productCardHTML(p) {
   const price = (p.price) ? new Intl.NumberFormat('vi-VN',{style:'currency',currency:'VND'}).format(Number(p.price)) : '';
@@ -625,6 +720,7 @@ window.loadAdminSettings = function(){
     if (s.background_img) { const el5 = document.getElementById('backgroundPreview'); if (el5) el5.src = s.background_img; }
   } catch(e){}
 };
+
 
 // NEW: Handle file upload to base64 for admin
 window.handleUpload = function(inputId, storageKey) {

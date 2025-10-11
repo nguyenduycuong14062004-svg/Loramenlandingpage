@@ -197,29 +197,7 @@ $('#thankOk') && $('#thankOk').addEventListener('click', ()=>{
 });
 
 // ---- Age gate ----
-(function ageGate() {
-  const overlay = document.getElementById('ageOverlay');
-  const confirm = document.getElementById('confirmAge');
-  const leave = document.getElementById('leaveBtn');
-  if (!overlay) return;
-  const confirmed = localStorage.getItem('lm_age_confirmed') === '1';
-  const show = !confirmed;
-  if (show) {
-    overlay.classList.remove('hidden');
-    setTimeout(()=>{
-      overlay.firstElementChild.classList.remove('opacity-0');
-      overlay.firstElementChild.classList.remove('scale-95');
-    }, 16);
-  }
-  confirm && confirm.addEventListener('click', ()=>{
-    localStorage.setItem('lm_age_confirmed','1');
-    // hide overlay
-    overlay.classList.add('hidden');
-    try { if (window.fbq) fbq('track','ViewContent',{content_name:'AgeConfirmed'}); } catch(e){}
-    try { if (window.ttq) ttq.track('AgeConfirmed'); } catch(e){}
-  });
-  leave && leave.addEventListener('click', ()=> window.location.href = 'https://google.com');
-})();
+
 
 // ---- mobile auto-swap images when product in view ----
 let mobileSwapIntervals = new Map();

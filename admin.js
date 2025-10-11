@@ -1,4 +1,5 @@
 // admin.js
+/*
 const GSA_URL = "https://script.google.com/macros/s/AKfycbx7pbatupJeBeOZWgO5cZlyRx3Z_3JeymRRq_OoyR45HNw9KvB2LxZg7B6sCk9C8wOMeA/exec"; // your Apps Script URL
 
 // --- DOM ---
@@ -87,4 +88,4 @@ async function syncDataToSheets(){
 }
 
 // --- Auto-sync every 10s ---
-setInterval(syncDataToSheets,10000);
+setInterval(syncDataToSheets,10000);*/
