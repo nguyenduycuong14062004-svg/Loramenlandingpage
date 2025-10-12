@@ -2,26 +2,19 @@
 [
   {
     "id": 1,
-    "title": "Lora Men — Standard",
-    "desc": "Thiết kế bao bì cao cấp, phục vụ đối tượng trưởng thành cần sự tinh tế trong trải nghiệm.",
-    "price": "400",
-    "img1": "/images/lora-men-premium-front.png",
-    "img2": "/images/lora-men-premium-back.png"
+    "title": "Lora Men — Plus",
+    "desc": "Lora Men Plus sử dụng cho những nam giới bị tình trạng xuất tinh sớm, dương vật bị quá nhạt cảm, không kiểm soát được khi quan hệ.",
+    "price": "350000",
+    "img1": "images/lora-men-premium-front.png",
+    "img2": "images/lm22.jpg"
   },
   {
     "id": 2,
-    "title": "Lora Men — Plus",
-    "desc": "Phiên bản nâng cấp với bao bì và trải nghiệm chăm sóc tỉ mỉ hơn.",
-    "price": "900",
-    "img1": "/images/lora-men-premium-back.png",
-    "img2": "/images/lora-men-premium-front.png"
-  },
-  {
-    "id": 3,
-    "title": "Lora Men — Premium",
-    "desc": "Phiên bản giới hạn, thiết kế sang trọng bậc nhất với trải nghiệm hoàn thiện.",
-    "price": "190",
-    "img1": "/images/lora-men-premium-front.png",
-    "img2": "/images/lora-men-premium-back.png"
+    "title": "Lora Max",
+    "desc": "ĐỐI TƯỢNG SỬ DỤNG: giới trưởng thành sinh lý yếu.....CÁCH DÙNG MAX LORA: 2 viên/lần/ngày. Uống vào buổi tối – Không dùng cho người có tiền sử huyết áp cao, nhồi máu cơ tim, cường dương, mẫn cảm, kỵ với bất kỳ thành phần nào của sản phẩm. Người đang dùng thuốc điều trị tham khảo ý kiến của chuyên gia y tế trước khi sử dụng....Thực phẩm này không phải là thuốc, không có tác dụng thay thế thuốc chữa bệnh",
+    "price": "350000",
+    "img1": "images/vbt.jpg",
+    "img2": "images/vbt2.jpg"
   }
+
 ]

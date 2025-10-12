@@ -7,6 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 text-gray-900">
+<link rel="icon" type="image/png" href="images/Logo1.png">
 
   <!-- Khung chính -->
   <div class="max-w-6xl mx-auto px-4 py-6">
@@ -223,6 +224,18 @@
         </div>
       </div>
     `;
+// ✅ Cho phép click vào ảnh nhỏ để đổi ảnh lớn
+const mainImg = container.querySelector('.border.rounded-xl img');
+const thumbs = container.querySelectorAll('.flex.gap-2.mt-3 img');
+
+thumbs.forEach(img => {
+  img.addEventListener('click', () => {
+    mainImg.src = img.src; // đổi ảnh lớn
+    // hiệu ứng chọn
+    thumbs.forEach(t => t.classList.remove('ring-2', 'ring-amber-400'));
+    img.classList.add('ring-2', 'ring-amber-400');
+  });
+});
 
     // ✅ Bắt sự kiện mở form đặt hàng
     document.getElementById('buyNowBtn').addEventListener('click', () => {
