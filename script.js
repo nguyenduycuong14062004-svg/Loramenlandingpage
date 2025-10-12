@@ -88,12 +88,12 @@ function renderFeedback() {
   });
 }
 const feedbacks = [
-  { img: './imagess/1.jpg' },
-  { img: './imagess/3.jpg' },
-  { img: './imagess/4.jpg' },
-  { img: './imagess/5.jpg' },
-  { img: './imagess/6.jpg' },
-  { img: './imagess/2.jpg' },
+  { img: './imagess/fb1.png' },
+  { img: './imagess/fb3.png' },
+  { img: './imagess/fb4.png' },
+  { img: './imagess/fb5.png' },
+  { img: './imagess/fb2.png' },
+  { img: './imagess/fb.png' },
 
 ];
 localStorage.setItem('lm_feedback', JSON.stringify(feedbacks));

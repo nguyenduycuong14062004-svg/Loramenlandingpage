@@ -344,11 +344,49 @@
 
       <!-- Phone -->
       <div>
-        <label class="block text-sm font-medium text-gray-700 mb-1">Số điện thoại / Zalo *</label>
-        <input id="phone" name="phone" required
-               class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-transparent transition"
-               placeholder="09xxxxxxxx" />
+        <label class="block text-sm font-medium text-gray-700 mb-1">
+          Số điện thoại / Zalo *
+        </label>
+        <input
+          id="phone"
+          name="phone"
+          required
+          maxlength="11"
+          class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-400 focus:border-transparent transition"
+          placeholder="09xxxxxxxx"
+          oninput="this.value = this.value.replace(/[^0-9]/g, ''); validatePhone(this)"
+        />
+        <p id="phone-error" class="text-red-500 text-sm mt-1 hidden">
+          Số điện thoại phải bắt đầu bằng 0 và có từ 9–11 chữ số.
+        </p>
       </div>
+
+      <script>
+        function validatePhone(input) {
+          const error = document.getElementById('phone-error');
+          const value = input.value;
+
+          // Chỉ kiểm tra khi người dùng đã nhập ít nhất 1 ký tự
+          if (value.length > 0) {
+            const valid = /^0\d{8,10}$/.test(value); // Bắt đầu bằng 0, tổng cộng 9–11 số
+            if (!valid) {
+              error.classList.remove('hidden');
+              input.classList.add('border-red-500', 'focus:ring-red-400');
+              input.classList.remove('border-gray-300', 'focus:ring-amber-400');
+            } else {
+              error.classList.add('hidden');
+              input.classList.remove('border-red-500', 'focus:ring-red-400');
+              input.classList.add('border-gray-300', 'focus:ring-amber-400');
+            }
+          } else {
+            error.classList.add('hidden');
+            input.classList.remove('border-red-500', 'focus:ring-red-400');
+            input.classList.add('border-gray-300', 'focus:ring-amber-400');
+          }
+        }
+      </script>
+
+
 
       <!-- Address -->
       <div>
